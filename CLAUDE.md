@@ -1,0 +1,1 @@
+- any sudo cmd just tell me to do it for you

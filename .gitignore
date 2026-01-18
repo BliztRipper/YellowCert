@@ -37,6 +37,20 @@ wheels/
 # VS Code
 .vscode/
 
+# Node.js / React
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+frontend/build/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
 # Model files and training outputs
 *.pt
 *.pth
@@ -45,6 +59,8 @@ wheels/
 runs/
 weights/
 checkpoints/
+models/best.pt
+models/last.pt
 
 # Logs
 *.log
@@ -60,3 +76,4 @@ logs/
 # *.png
 # *.mp4
 # *.avi
+.DS_Store
