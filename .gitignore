@@ -77,3 +77,4 @@ logs/
 # *.mp4
 # *.avi
 .DS_Store
+.vercel
