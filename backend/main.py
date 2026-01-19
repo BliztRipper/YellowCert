@@ -10,10 +10,23 @@ import os
 
 app = FastAPI()
 
-# Enable CORS for React frontend
+# Enable CORS for React frontend (development and production)
+allowed_origins = [
+    "http://localhost:3000",  # Local development
+    "http://localhost:3001",  # Alternative local port
+]
+
+# Add production origins from environment variable
+production_origin = os.getenv("FRONTEND_URL")
+if production_origin:
+    allowed_origins.append(production_origin)
+    # Also allow Vercel preview deployments
+    if "vercel.app" in production_origin:
+        allowed_origins.append("https://*.vercel.app")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
