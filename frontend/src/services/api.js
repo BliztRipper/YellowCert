@@ -43,8 +43,3 @@ export const checkHealth = async () => {
     throw new Error('Failed to connect to API');
   }
 };
-
-export default {
-  detectCertificate,
-  checkHealth,
-};
