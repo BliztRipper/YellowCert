@@ -62,14 +62,27 @@ pip install -r requirements.txt
 ```
 
 2. Train the YOLOv8 model:
+
+**Option A: Local Training (Mac/PC)**
 ```bash
 python train_model.py
+```
+
+**Option B: Google Colab (Recommended - Free GPU!)** 🚀
+```bash
+# Prepare dataset for Colab
+./prepare_for_colab.sh
+
+# Then upload YellowCert_Training_Colab.ipynb to Colab
+# See COLAB_TRAINING_GUIDE.md for detailed instructions
 ```
 
 This will:
 - Train YOLOv8 on the vaccination certificate dataset
 - Save the best model to `models/best.pt`
 - Display training metrics and validation results
+
+**Note:** Google Colab is recommended for faster training with free GPU access!
 
 3. Start the FastAPI server:
 ```bash

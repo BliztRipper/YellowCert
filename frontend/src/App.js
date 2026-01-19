@@ -4,16 +4,16 @@ import './App.css';
 
 const API_URL = 'http://localhost:8000';
 
-// Color mapping for different classes - Medical theme colors
+// Color mapping for different classes - Distinct medical theme colors for easy identification
 const CLASS_COLORS = {
-  'cholera': '#26A69A',
-  'covid': '#00ACC1',
-  'date': '#0097A7',
-  'flu': '#00897B',
-  'logo': '#00796B',
-  'meningo': '#0288D1',
-  'signature': '#00695C',
-  'yellowfever': '#FFA726'
+  'cholera': '#26A69A',      // Teal - Water/hygiene related
+  'covid': '#2196F3',        // Bright Blue - Distinct medical blue
+  'date': '#9C27B0',         // Purple - Administrative/documentation
+  'flu': '#4CAF50',          // Green - Health/wellness
+  'logo': '#1565C0',         // Navy Blue - Professional/official
+  'meningo': '#E91E63',      // Pink/Magenta - Alert/important
+  'signature': '#5E35B1',    // Indigo - Authority/validation
+  'yellowfever': '#FF9800'   // Orange/Amber - Yellow fever specific
 };
 
 function App() {
