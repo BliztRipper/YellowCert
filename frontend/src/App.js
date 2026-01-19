@@ -1,9 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import axios from 'axios';
 import './App.css';
-
-// Use environment variable for production, fallback to localhost for development
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+import { detectCertificate } from './services/api';
 
 // Color mapping for different classes - Distinct medical theme colors for easy identification
 const CLASS_COLORS = {
@@ -37,37 +34,26 @@ function App() {
   };
 
   const handleUpload = async () => {
-    console.log('Detect button clicked');
     if (!selectedImage) {
       setError('Please select an image first');
       return;
     }
 
-    console.log('Starting upload...', selectedImage.name);
     setLoading(true);
     setError(null);
 
-    const formData = new FormData();
-    formData.append('file', selectedImage);
-
     try {
-      const response = await axios.post(`${API_URL}/predict`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const data = await detectCertificate(selectedImage);
 
-      console.log('Response received:', response.data);
-
-      if (response.data.success) {
-        console.log('Detections:', response.data.detections);
-        setDetections(response.data.detections);
+      if (data.success) {
+        console.log(`✓ Detected ${data.count} elements`);
+        setDetections(data.detections);
       } else {
-        setError('Detection failed');
+        setError(data.error || 'Detection failed');
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'Failed to connect to server');
-      console.error('Error:', err);
+      setError(err.message);
+      console.error('Detection error:', err);
     } finally {
       setLoading(false);
     }

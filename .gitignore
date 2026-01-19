@@ -53,13 +53,13 @@ frontend/.env.production.local
 
 # Model files and training outputs
 *.pt
+!models/best.pt
 *.pth
 *.weights
 *.onnx
 runs/
 weights/
 checkpoints/
-models/best.pt
 models/last.pt
 
 # Logs
@@ -76,5 +76,22 @@ logs/
 # *.png
 # *.mp4
 # *.avi
+
+# System files
 .DS_Store
+**/.DS_Store
+
+# Deployment
 .vercel
+
+# Dataset archives
+*.zip
+yellowcert_dataset.zip
+
+# Generated files
+frontend/build/
+frontend/bun.lock
+
+# Roboflow auto-generated
+README.dataset.txt
+README.roboflow.txt
