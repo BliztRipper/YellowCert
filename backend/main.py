@@ -58,12 +58,15 @@ CLASS_NAMES = [
     'logo', 'meningo', 'signature', 'yellowfever'
 ]
 
-@app.on_event("startup")
-async def load_model():
-    """Load YOLOv8 model on startup"""
+def load_model_if_needed():
+    """Load YOLOv8 model on first request (lazy loading)"""
     global model
 
+    if model is not None:
+        return
+
     try:
+        print(f"🔄 Loading model from {MODEL_PATH}...")
         if os.path.exists(MODEL_PATH):
             model = YOLO(MODEL_PATH)
             print(f"✅ Model loaded successfully from {MODEL_PATH}")
@@ -119,6 +122,9 @@ async def predict(file: UploadFile = File(...)):
     Returns:
         JSON with detections, bounding boxes, and confidence scores
     """
+    # Load model on first request (lazy loading for faster startup)
+    load_model_if_needed()
+
     try:
         # Read and decode image
         contents = await file.read()
