@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -73,13 +73,7 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    if (imagePreview && detections.length > 0 && canvasRef.current && imageRef.current) {
-      drawDetections();
-    }
-  }, [detections, imagePreview]);
-
-  const drawDetections = () => {
+  const drawDetections = useCallback(() => {
     const canvas = canvasRef.current;
     const image = imageRef.current;
     const ctx = canvas.getContext('2d');
@@ -119,7 +113,13 @@ function App() {
       ctx.fillStyle = '#000000';
       ctx.fillText(label, bbox.x1 + 5, bbox.y1 - 8);
     });
-  };
+  }, [detections]);
+
+  useEffect(() => {
+    if (imagePreview && detections.length > 0 && canvasRef.current && imageRef.current) {
+      drawDetections();
+    }
+  }, [detections, imagePreview, drawDetections]);
 
   return (
     <div className="App">
