@@ -31,15 +31,18 @@ def get_allowed_origins() -> List[str]:
     production_origin = os.getenv("FRONTEND_URL")
     if production_origin:
         origins.append(production_origin)
-        # Allow Vercel preview deployments
-        if "vercel.app" in production_origin:
-            origins.append("https://*.vercel.app")
+        print(f"✅ Added production origin: {production_origin}")
+    else:
+        print("⚠️  Warning: FRONTEND_URL not set in environment variables")
 
     return origins
 
+allowed_origins = get_allowed_origins()
+print(f"🔒 CORS allowed origins: {allowed_origins}")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=get_allowed_origins(),
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
